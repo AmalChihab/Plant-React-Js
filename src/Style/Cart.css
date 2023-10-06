@@ -1,0 +1,27 @@
+.panier_data {
+    width: 12rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(21, 165, 21);
+    color: white;
+}
+
+.span_panier_cart, .span_total_cart{
+    margin: 1rem;
+    padding-top: 10px;
+}
+
+.span_panier_cart {
+    margin-top: 20px;
+}
+
+.button_vider_panier_cart {
+    margin: 10px;
+    width: fit-content;
+}
+
+.cart_isempty_data_cart {
+    font-family: cursive;
+    margin-left: 15px;
+}
