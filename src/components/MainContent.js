@@ -1,32 +1,41 @@
-import React, {useState , useEffect} from 'react'
-import Categories from './Categories'
+import React, { useState, useEffect } from 'react';
+import Categories from './Categories';
 import Cart from './Cart';
 import "../Style/MainContent.css";
 import ShoppingList from './ShoppingList';
-import  {plantList}  from './PlantList';
-
+import axios from 'axios';
 
 const MainContent = () => {
-    const [filteredPlantList, setFilteredPlantList] = useState(plantList);
-    const [cart, setCart] = useState([]);
+  const [plantData, setPlantData] = useState([]);
+  const [filteredPlantList, setFilteredPlantList] = useState([]);
+  const [cart, setCart] = useState([]);
 
-
-    
-      useEffect(() => {
-        const cartStorage = localStorage.getItem('cart');
-        if(cartStorage){
-            setCart(JSON.parse(cartStorage));
-        }
-      }, []);
-
+  useEffect(() => {
+    // Load plant data
+    axios.get('http://localhost:8080/api/plants')
+      .then(response => {
+        setPlantData(response.data);
+        setFilteredPlantList(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  
+    // Load cart from local storage
+    const cartStorage = localStorage.getItem('cart');
+    if (cartStorage) {
+      setCart(JSON.parse(cartStorage));
+    }
+  }, []);
+  
 
   const handleCategoryFilter = (selectedCategory) => {
     if (selectedCategory === '') {
       // If no category is selected, show all plant items
-      setFilteredPlantList(plantList);
+      setFilteredPlantList(plantData);
     } else {
       // Filter plant items based on the selected category
-      const filteredItems = plantList.filter((item) => item.category === selectedCategory);
+      const filteredItems = plantData.filter((item) => item.category === selectedCategory);
       setFilteredPlantList(filteredItems);
     }
   };
@@ -38,19 +47,19 @@ const MainContent = () => {
   };
 
   const clearCart = () => {
-    setCart([]); 
+    setCart([]);
     localStorage.clear();
   };
 
   return (
     <div className="main_content_container">
-        <Cart cart={cart} clearCart={clearCart} />
-       <div> 
-        <Categories plantList={plantList} onCategoryChange={handleCategoryFilter} />          
-        <ShoppingList plantList={filteredPlantList} addToCart={addToCart} />  
-       </div> 
+      <Cart cart={cart} clearCart={clearCart} />
+      <div>
+        <Categories plantList={plantData} onCategoryChange={handleCategoryFilter} />
+        <ShoppingList plantList={filteredPlantList} addToCart={addToCart} />
+      </div>
     </div>
-  )
+  );
 }
 
-export default MainContent
+export default MainContent;

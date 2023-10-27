@@ -1,13 +1,3 @@
-import monstera from '../assets/monstera.jpg'
-import lyrata from '../assets/lyrata.jpg'
-import pothos from '../assets/pothos.jpg'
-import succulent from '../assets/succulent.jpg'
-import olivier from '../assets/olivier.jpg'
-import basil from '../assets/basil.jpg'
-import mint from '../assets/mint.jpg'
-import calathea from '../assets/calathea.jpg'
-import cactus from '../assets/cactus.jpg'
-
 export const plantList = [
 	{
 		name: 'monstera',
@@ -15,7 +5,7 @@ export const plantList = [
 		id: '1ed',
 		light: 2,
 		water: 3,
-		cover: monstera,
+		cover: "monstera.jpg",
 		price: 15
 	},
 	{
@@ -24,7 +14,7 @@ export const plantList = [
 		id: '2ab',
 		light: 3,
 		water: 1,
-		cover: lyrata,
+		cover: "lyrata.jpg",
 		price: 16
 	},
 
@@ -34,7 +24,7 @@ export const plantList = [
 		id: '3sd',
 		light: 1,
 		water: 2,
-		cover: pothos,
+		cover: "pothos.jpg",
 
 		price: 9
 	},
@@ -44,7 +34,7 @@ export const plantList = [
 		id: '4kk',
 		light: 2,
 		water: 3,
-		cover: calathea,
+		cover: "calathea.jpg",
 
 		price: 20
 	},
@@ -54,7 +44,7 @@ export const plantList = [
 		id: '5pl',
 		light: 3,
 		water: 1,
-		cover: olivier,
+		cover: "olivier.jpg",
 		price: 25
 	},
 
@@ -64,7 +54,7 @@ export const plantList = [
 		id: '8fp',
 		light: 2,
 		water: 1,
-		cover: cactus,
+		cover: "cactus.jpg",
 		price: 6
 	},
 	{
@@ -73,7 +63,7 @@ export const plantList = [
 		id: '7ie',
 		light: 2,
 		water: 3,
-		cover: basil,
+		cover: "basil.jpg",
 		price: 5
 	},
 	{
@@ -82,7 +72,7 @@ export const plantList = [
 		id: '9vn',
 		light: 2,
 		water: 1,
-		cover: succulent,
+		cover: "succulent.jpg",
 		price: 8
 	},
 
@@ -92,7 +82,7 @@ export const plantList = [
 		id: '6uo',
 		light: 2,
 		water: 2,
-		cover: mint,
+		cover: "mint.jpg",
 		price: 4
 	}
 ]
