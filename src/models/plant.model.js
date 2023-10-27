@@ -28,4 +28,69 @@ Plant.getAll = (name, result) => {
     });
 };
 
+Plant.update = (id, plant, result) => {
+    sql.query('UPDATE plant SET name = ?, price = ?, water = ?, light = ?, category = ?, cover = ? WHERE id = ?', 
+      [plant.name, plant.price, plant.water, plant.light, plant.category, plant.cover, id], (err, res) => {
+      if (err) {
+        console.log('Error:', err);
+        result(err, null);
+        return;
+      }
+      if (res.affectedRows === 0) {
+        result({ kind: 'not_found' }, null);
+        return;
+      }
+      console.log('Updated plant: ', { id: id, ...plant });
+      result(null, { id: id, ...plant });
+    });
+  };
+  
+  Plant.delete = (id, result) => {
+    sql.query('DELETE FROM plant WHERE id = ?', id, (err, res) => {
+      if (err) {
+        console.log('Error:', err);
+        result(err, null);
+        return;
+      }
+      if (res.affectedRows === 0) {
+        result({ kind: 'not_found' }, null);
+        return;
+      }
+      console.log('Deleted plant with id: ', id);
+      result(null, res);
+    });
+  };
+
+  Plant.create = (newPlant, result) => {
+    sql.query('INSERT INTO plant SET ?', newPlant, (err, res) => {
+      if (err) {
+        console.log('Error:', err);
+        result(err, null);
+        return;
+      }
+      console.log('Created plant: ', { id: res.insertId, ...newPlant });
+      result(null, { id: res.insertId, ...newPlant });
+    });
+  };
+
+  Plant.findById = (id, result) => {
+    sql.query('SELECT * FROM plant WHERE id = ?', id, (err, res) => {
+        if (err) {
+            console.log('Error:', err);
+            result(err, null);
+            return;
+        }
+
+        if (res.length) {
+            console.log('Found plant with ID:', id);
+            result(null, res[0]);
+            return;
+        }
+
+        // Plant with the specified ID was not found
+        result({ kind: 'not_found' }, null);
+    });
+};
+
+
 module.exports = Plant;

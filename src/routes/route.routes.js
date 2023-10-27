@@ -10,5 +10,19 @@ module.exports = app => {
     // Retrieve all plants
     router.get("/", plants.findAll);
 
+    router.get("/:id", plants.findOne);
+
+    // Create a plant
+    router.post("/", plants.create);
+
+    // Update a plant
+    router.put("/:id",plants.update);
+
+    // Delete a plant
+    router.delete("/:id",plants.delete);
+
+    // Delete all plants
+    router.delete("/", plants.deleteAll);
+
     app.use('/api/plants', router);
 };
