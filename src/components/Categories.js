@@ -12,7 +12,6 @@ const Categories = ({ plantList, onCategoryChange }) => {
 
   const handleSearch = () => {
     onCategoryChange(selectedCategory);
-    console.log(`Searching for category: ${selectedCategory}`);
 
   };
 

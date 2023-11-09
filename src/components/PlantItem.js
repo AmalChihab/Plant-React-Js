@@ -26,7 +26,6 @@ const PlantItem = ({ plant, addToCart }) => {
     cactus,
   };
 
-     console.log("dataaa : ",plant)
   return (
    
     <div className="plant-card">

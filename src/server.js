@@ -1,30 +1,34 @@
-const express = require('express');
-const cors = require('cors');
+const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors"); 
+
 const app = express();
-const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 8080;
 
+// Connect to MongoDB
+const dbUrl = "mongodb://127.0.0.1:27017/db";
 
+// Enable CORS for all routes
+app.use(cors());
 
-app.use(cors({
-    origin: ['http://localhost:8081', 'http://localhost:3000'], 
-}));
+// Include this middleware to parse JSON data from the request body
+app.use(express.json());
 
+mongoose
+    .connect(dbUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log("Connected to MongoDB");
 
-app.use(bodyParser.urlencoded({ extended: false }))
+        const plantRoutes = require("./routes/route.routes")(app);
 
-// parse application/json
-app.use(bodyParser.json())
-
-app.use(express.urlencoded({ extended: true }));
-
-app.get("/", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
-    res.json({ message: "Welcome to the plant application" });
-});
-
-require('./routes/route.routes')(app);
-
-const PORT = 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+        // Start the Express server
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error("Failed to connect to MongoDB:", err);
+    });

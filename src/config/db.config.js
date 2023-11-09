@@ -1,6 +1,3 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "",
-    DB: "plantDB"
-};
+   url:"mongodb://localhost:27017/db"
+}

@@ -1,28 +1,32 @@
-module.exports = app => {
-    const plants = require('../controllers/plant.controller');
-    const router = require('express').Router();
+module.exports = (app) => {
+    const plants = require("../controllers/plant.controller.js");
+    const users = require("../controllers/user.controller.js");
+    const orders = require("../controllers/order.controller.js");
 
-    router.use((req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
-        next();
-    });
+    var router = require("express").Router();
 
-    // Retrieve all plants
+    // Create a new Plant
+    //  router.post("/", plants.create);
+
+    // Retrieve all Plants
     router.get("/", plants.findAll);
 
+    // Retrieve a single Plant with id
     router.get("/:id", plants.findOne);
 
-    // Create a plant
-    router.post("/", plants.create);
+    router.post('/register', users.registerUser);
 
-    // Update a plant
-    router.put("/:id",plants.update);
+    router.post('/createOrder', orders.createOrder);
 
-    // Delete a plant
-    router.delete("/:id",plants.delete);
+     // Update a Plant with id
+    // router.put("/:id", plants.update);
 
-    // Delete all plants
-    router.delete("/", plants.deleteAll);
+     // Delete a Plant with id
+    // router.delete("/:id", plants.delete);
 
-    app.use('/api/plants', router);
+    // Delete all Plants
+    // router.delete("/", plants.deleteAll);
+
+    // Attach the router to the app
+    app.use("/api/plants", router);
 };
