@@ -2,14 +2,15 @@ module.exports = (app) => {
     const plants = require("../controllers/plant.controller.js");
     const users = require("../controllers/user.controller.js");
     const orders = require("../controllers/order.controller.js");
-
+    const { checkDuplicateUsernameOrEmail } = require('../middleware/verifySignUp');
+    const controller = require('../controllers/auth.controller');
+    const { verifyToken } = require('../middleware/authJwt');
     var router = require("express").Router();
 
-    // Create a new Plant
-    //  router.post("/", plants.create);
 
     // Retrieve all Plants
-    router.get("/", plants.findAll);
+    router.get('/', [verifyToken], plants.findAll);
+
 
     // Retrieve a single Plant with id
     router.get("/:id", plants.findOne);
@@ -18,15 +19,14 @@ module.exports = (app) => {
 
     router.post('/createOrder', orders.createOrder);
 
-     // Update a Plant with id
-    // router.put("/:id", plants.update);
-
-     // Delete a Plant with id
-    // router.delete("/:id", plants.delete);
-
-    // Delete all Plants
-    // router.delete("/", plants.deleteAll);
-
+    router.post(
+        '/auth/signup',
+        [checkDuplicateUsernameOrEmail],
+        controller.signup
+      );
+    
+    router.post('/auth/signin', controller.signin);
+    
     // Attach the router to the app
     app.use("/api/plants", router);
 };

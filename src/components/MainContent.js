@@ -11,8 +11,14 @@ const MainContent = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        'x-access-token': token,
+      },
+    };
     // Load plant data
-    axios.get('http://localhost:8080/api/plants')
+    axios.get('http://localhost:8080/api/plants',config)
       .then(response => {
         setPlantData(response.data);
         setFilteredPlantList(response.data);
